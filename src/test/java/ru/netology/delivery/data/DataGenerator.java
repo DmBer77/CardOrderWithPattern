@@ -6,12 +6,14 @@ import lombok.Value;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Random;
 
 
 public class DataGenerator {
     private DataGenerator() {
 
     }
+
     static Faker faker = new Faker((new Locale("ru")));
 
     public static String generateDate(int daysToAdd) {
@@ -21,9 +23,17 @@ public class DataGenerator {
     }
 
     public static String generateCity(String locale) {
+        String[] ArrayOfCities = {"Абакан", "Владикавказ", "Екатеринбург", "Йошкар-Ола", "Казань", "Калининград",
+                "Калуга", "Краснодар", "Красноярск", "Курган", "Махачкала", "Москва", "Петропавловск-Камчатский",
+                "Сыктывкар", "Чебоксары", "Анадырь", "Архангельск", "Астрахань", "Барнаул", "Абакан", "Владимир",
+                "Нарьян-Мар", "Салехард", "Абакан", "Самара", "Санкт-Петербург", "Абакан", "Ставрополь", "Хабаровск"};
+
+        Random random = new Random();
+        int i = random.nextInt(ArrayOfCities.length);
+
         // TODO: добавить логику для объявления переменной city и задания её значения, генерацию можно выполнить
         // с помощью Faker, либо используя массив валидных городов и класс Random
-        return "Казань";
+        return ArrayOfCities[i];
     }
 
     public static String generateName(String locale) {
@@ -61,19 +71,3 @@ public class DataGenerator {
         String phone;
     }
 }
-//
-//
-//public class DataGenerator {
-//    private DataGenerator() {}
-//    public static class Registration {
-//        private Registration() {}
-//        public static RegistrationByCardInfo generateByCard(String locale) {
-//            Faker faker = new Faker(new Locale(locale));
-//            return new RegistrationByCardInfo(
-//                    faker.name().fullName(),
-//                    faker.finance().creditCard(CreditCardType.MASTERCARD),
-//                    LocalDate.now().plusYears(1)
-//            );
-//        }
-//    }
-//}
