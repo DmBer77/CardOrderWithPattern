@@ -39,9 +39,9 @@ public class CardDeliveryWPTest {
         $(".notification__content")
                 .shouldBe(visible).shouldHave(text("Встреча успешно запланирована на " + firstMeetingDate));
         TimeUnit.SECONDS.sleep(2);
-
         $("[data-test-id=date] input").doubleClick().sendKeys(secondMeetingDate);
         $(By.className("button")).click();
+        TimeUnit.SECONDS.sleep(2);
         $x("//span[contains(text(),'Перепланировать')]").click();
         $(".notification__content")
                 .shouldBe(visible).shouldHave(text("Встреча успешно запланирована на " + secondMeetingDate));
