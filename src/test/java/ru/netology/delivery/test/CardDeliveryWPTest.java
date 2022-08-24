@@ -38,11 +38,15 @@ public class CardDeliveryWPTest {
         $x("//*[contains(text(),'Запланировать')]").click();
         $(".notification__content")
                 .shouldBe(visible).shouldHave(text("Встреча успешно запланирована на " + firstMeetingDate));
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(1);
+        $("[data-test-id=date] input").doubleClick().sendKeys(firstMeetingDate);
+        $(By.className("button")).click();
+        $x("//span[contains(text(),'Перепланировать')]").click();
+        TimeUnit.SECONDS.sleep(1);
         $("[data-test-id=date] input").doubleClick().sendKeys(secondMeetingDate);
         $(By.className("button")).click();
-        TimeUnit.SECONDS.sleep(2);
         $x("//span[contains(text(),'Перепланировать')]").click();
+        TimeUnit.SECONDS.sleep(1);
         $(".notification__content")
                 .shouldBe(visible).shouldHave(text("Встреча успешно запланирована на " + secondMeetingDate));
     }
