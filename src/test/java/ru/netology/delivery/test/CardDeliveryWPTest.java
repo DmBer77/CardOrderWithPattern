@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import ru.netology.delivery.data.DataGenerator;
 
+import java.util.concurrent.TimeUnit;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
@@ -30,12 +32,14 @@ public class CardDeliveryWPTest {
 
         $("[data-test-id='city'] input").setValue(validUser.getCity());
         $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE, firstMeetingDate);
-        $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE, secondMeetingDate);
         $("[data-test-id='name'] input").setValue(validUser.getName());
         $("[data-test-id='phone'] input").setValue(validUser.getPhone());
         $("[data-test-id='agreement']").click();
         $x("//*[contains(text(),'Запланировать')]").click();
-        String dayToDelivery = $("[data-test-id='date'] input").getValue();
+        $(".notification__content")
+                .shouldBe(visible).shouldHave(text("Встреча успешно запланирована на " + firstMeetingDate));
+        TimeUnit.SECONDS.sleep(2);
+
         $("[data-test-id=date] input").doubleClick().sendKeys(secondMeetingDate);
         $(By.className("button")).click();
         $x("//span[contains(text(),'Перепланировать')]").click();
